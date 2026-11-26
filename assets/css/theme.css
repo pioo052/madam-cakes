@@ -1,0 +1,234 @@
+/* ==========================================================================
+   MADAM CAKES — design tokens and base layer
+   Visual direction: luxury rose/cream/gold boutique, drawn from the approved
+   reference (rounded hero card, arch image mask, serif headline + script accent).
+   ========================================================================== */
+
+:root {
+  /* Brand palette */
+  --mc-rose:        #D98FA5;
+  --mc-rose-deep:   #B96F88;
+  --mc-rose-vivid:  #E0436F;   /* reference CTA magenta */
+  --mc-gold:        #C9A66B;
+  --mc-gold-soft:   #E6D3B3;
+  --mc-cream:       #FFF8F1;
+  --mc-ivory:       #FFFCF8;
+  --mc-choc:        #49332F;
+  --mc-choc-soft:   #6E5B56;
+  --mc-white:       #FFFFFF;
+  --mc-line:        #EADFD6;
+  --mc-success:     #3F7D5A;
+  --mc-warning:     #B07A2A;
+  --mc-danger:      #B23A48;
+
+  /* Typography */
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-body: "DM Sans", "Poppins", -apple-system, "Segoe UI", sans-serif;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-sm: 0 2px 8px rgba(73, 51, 47, .06);
+  --shadow-md: 0 12px 32px rgba(73, 51, 47, .10);
+  --shadow-lg: 0 24px 64px rgba(73, 51, 47, .14);
+
+  /* Motion */
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
+  --dur-fast: .18s;
+  --dur-mid: .32s;
+  --dur-slow: .6s;
+
+  /* Layout */
+  --container: 1200px;
+  --header-h: 88px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--mc-choc);
+  background: var(--mc-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--mc-choc);
+  margin: 0 0 var(--space-3);
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.6rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+
+p { margin: 0 0 var(--space-4); }
+
+a { color: var(--mc-rose-deep); text-decoration: none; }
+a:hover { color: var(--mc-choc); }
+
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--mc-rose-deep);
+  outline-offset: 3px;
+}
+
+.container {
+  width: min(100% - 2.5rem, var(--container));
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------- buttons */
+.btn {
+  --btn-bg: var(--mc-rose-vivid);
+  --btn-fg: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 14px 30px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font: 500 .95rem/1 var(--font-body);
+  letter-spacing: .02em;
+  cursor: pointer;
+  text-align: center;
+  transition: transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--mc-rose-deep);
+  border-color: currentColor;
+}
+.btn-outline:hover { background: var(--mc-rose-deep); color: #fff; }
+
+.btn-gold { background: var(--mc-gold); color: var(--mc-choc); }
+.btn-block { width: 100%; }
+.btn-ghost { background: transparent; color: var(--mc-choc-soft); }
+
+/* ----------------------------------------------------------------- notes */
+.note {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--mc-line);
+  background: var(--mc-white);
+  font-size: .92rem;
+}
+.note-error   { border-left-color: var(--mc-danger);  color: var(--mc-danger); }
+.note-success { border-left-color: var(--mc-success); color: var(--mc-success); }
+.note-warning { border-left-color: var(--mc-warning); color: var(--mc-warning); }
+
+/* ----------------------------------------------------------------- forms */
+.field { display: block; margin-bottom: var(--space-4); }
+.field > span {
+  display: block;
+  font-size: .82rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--mc-choc-soft);
+  margin-bottom: var(--space-2);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: 15px 18px;
+  font: inherit;
+  color: var(--mc-choc);
+  background: var(--mc-white);
+  border: 1px solid var(--mc-line);
+  border-radius: var(--radius-pill);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+textarea { border-radius: var(--radius-md); min-height: 140px; resize: vertical; }
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--mc-rose);
+  box-shadow: 0 0 0 4px rgba(217, 143, 165, .16);
+}
+
+/* ------------------------------------------------------------ setup page */
+.setup-body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6) var(--space-4);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(224, 67, 111, .22), transparent 60%),
+    linear-gradient(160deg, var(--mc-rose-vivid) 0%, #C22A5B 45%, var(--mc-choc) 100%);
+}
+
+.setup-card {
+  width: min(560px, 100%);
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--mc-ivory);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.setup-eyebrow {
+  font-size: .78rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--mc-gold);
+  margin-bottom: var(--space-2);
+}
+
+.setup-title { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: var(--space-4); }
+.setup-title span { display: block; font-size: .55em; color: var(--mc-rose-deep); font-style: italic; }
+.setup-lead { color: var(--mc-choc-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

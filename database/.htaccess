@@ -1,0 +1,2 @@
+# Deny all web access to SQL files and database documentation
+Require all denied

@@ -1,0 +1,55 @@
+name: madam-cakes
+
+services:
+  app:
+    build: .
+    image: madam-cakes:latest
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      MADAM_ENV: ${APP_ENV:-production}
+      MADAM_URL: ${APP_URL:-http://localhost:8080}
+      MADAM_HTTPS: ${APP_HTTPS:-0}
+      MADAM_DB_HOST: db
+      MADAM_DB_PORT: "3306"
+      MADAM_DB_NAME: ${DB_NAME:-madam_cakes_db}
+      MADAM_DB_USER: ${DB_USER:-madam}
+      MADAM_DB_PASS: ${DB_PASS:?Copy .env.example to .env and set DB_PASS}
+    volumes:
+      - uploads:/var/www/html/assets/uploads
+      - logs:/var/www/html/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "php -r \"exit(@fsockopen('127.0.0.1', 80) ? 0 : 1);\""]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-madam_cakes_db}
+      MARIADB_USER: ${DB_USER:-madam}
+      MARIADB_PASSWORD: ${DB_PASS:?Copy .env.example to .env and set DB_PASS}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASS:?Copy .env.example to .env and set DB_ROOT_PASS}
+    volumes:
+      # Imported only when the data volume is empty (first start).
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+volumes:
+  db_data:
+  uploads:
+  logs:

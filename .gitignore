@@ -1,0 +1,14 @@
+# Local environment and secrets — never commit.
+.env
+config/config.local.php
+
+# Runtime data
+logs/*
+!logs/.gitkeep
+assets/uploads/*
+!assets/uploads/.htaccess
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+*.swp

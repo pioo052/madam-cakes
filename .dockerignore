@@ -1,0 +1,15 @@
+.git
+.gitignore
+.freebuff
+.env
+.env.*
+!.env.example
+config/config.local.php
+
+# Runtime data belongs in named volumes, not in the image.
+logs/*
+assets/uploads/*
+!assets/uploads/.htaccess
+
+# Repository documentation is not part of the runtime.
+*.md

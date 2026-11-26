@@ -1,0 +1,18 @@
+# Uploads are images only — never executable.
+Options -Indexes -ExecCGI
+
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>
+
+<FilesMatch "\.(php|phtml|phar|php3|php4|php5|php7|php8|cgi|pl|py|sh|asp|aspx|js|html?)$">
+  Require all denied
+</FilesMatch>
+
+AddType text/plain .php .phtml .phar
